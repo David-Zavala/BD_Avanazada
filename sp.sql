@@ -1,0 +1,6 @@
+DELIMITER //
+CREATE PROCEDURE mostrarProductos() 
+BEGIN
+SELECT * FROM  Productos;
+END //
+DELIMITER ;

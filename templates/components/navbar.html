@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container py-4">
+
+    <div class="d-flex ms-5 text-center align-items-center">
+      <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="logo" width="80" height="80">
+      <a href="/" class="btn rounded bg-danger p-2 text-white">Inicio</a>
+    </div>
+    
+    <!--<form class="d-flex col-5 ms-5">
+      <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>-->
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav justify-content-evenly d-flex w-100">
+          <li class="nav-item"><a href="/productos" class="btn nav-link rounded bg-success p-2 text-white">Productos</a></li>
+        {% if 'username' in session and session['username'] != None %}
+          <!-- código a ejecutar si _name no es None -->
+          <li class="nav-item"><a href="/mispedidos" class="btn nav-link rounded bg-success p-2 text-white">Mis Pedidos</a></li>
+          <li class="nav-item"><a class="btn nav-link rounded bg-success p-2 text-white">Bienvenido {{ session['username'] }}</a></li>
+          <li class="nav-item"><a href="/carrito" class="btn nav-link rounded bg-success p-2 text-white">Carrito</a></li>
+          <li class="nav-item"><a href="/cerrarSesion" class="btn nav-link rounded bg-danger p-2 text-white">Cerrar Sesión</a></li>
+	  {% else %}
+          <!-- código a ejecutar si _name es None -->
+          <li class="nav-item"><a href="/login" class="btn nav-link rounded bg-success p-2 text-white">Iniciar sesión</a></li>
+      {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

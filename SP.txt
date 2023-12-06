@@ -1,0 +1,223 @@
+index:
+DELIMITER //
+CREATE PROCEDURE mostrarProductos()
+BEGIN
+SELECT * FROM  Productos;
+END //
+DELIMITER ;
+
+Registrar:
+CREATE PROCEDURE sacarNombre(
+IN nombre VARCHAR(100))
+BEGIN
+SELECT nombreUsuario FROM Usuarios WHERE nombreUsuario = nombre;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE registroUsuario(
+IN usuario VARCHAR(100),
+IN contra VARCHAR(100),
+IN correo VARCHAR(100),
+IN apellido VARCHAR(100),
+IN fechaNacimiento VARCHAR(100),
+IN pais VARCHAR(100),
+IN direccion VARCHAR(100),
+IN telefono VARCHAR(100)) 
+BEGIN
+INSERT INTO (contrasena, nombreUsuario, apellido, correoElectronico, fechaNacimiento, direccion, pais, telfono) VALUES (contra, usuario, apellido, correo, fechaNacimiento, direccion, pais, telefono);
+END //
+DELIMITER ;
+
+CREATE PROCEDURE sacarId(
+IN nombre VARCHAR(100))
+BEGIN
+SELECT idUsuario FROM Usuarios WHERE nombreUsuario = nombre;
+END //
+DELIMITER ;
+
+CREATE PROCEDURE insertarCarritoNuevo(
+IN idUser INT)
+BEGIN
+INSERT INTO Carritos (idUsuario) VALUES (idUser);
+END //
+DELIMITER ;
+
+login:
+
+DELIMITER //
+CREATE PROCEDURE login(
+IN usuario VARCHAR(100),
+IN contra VARCHAR(100),
+OUT validacion INT)
+BEGIN
+DECLARE conteo INT;
+SELECT COUNT(*) INTO conteo
+FROM usuarios
+WHERE NombreUsuario = usuario AND contrasena = contra;
+IF conteo > 0 THEN
+SET validacion = 1; 
+ELSE
+SET validacion = 0;
+END IF;
+END //
+DELIMITER ; 
+
+CREATE PROCEDURE sacarId(
+IN nombre VARCHAR(100))
+BEGIN
+SELECT idUsuario FROM Usuarios WHERE nombreUsuario = nombre;
+END //
+DELIMITER ;
+
+CREATE PROCEDURE insertarCarritoNuevo(
+IN idUser INT)
+BEGIN
+INSERT INTO Carritos (idUsuario) VALUES (idUser);
+END //
+DELIMITER ;
+
+misPedidos:
+
+DELIMITER //
+CREATE PROCEDURE mostrarPedidos(
+IN idNumber INT)
+BEGIN
+SELECT * FROM Pedidos WHERE idUsuario = idNumber;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sacarPedidosUsuario(
+IN idNumber INT)
+BEGIN
+SELECT * FROM Productos WHERE idProducto IN (SELECT idProducto FROM ProductosPedidos WHERE idPedido IN (SELECT idPedido FROM Pedidos WHERE idUsuario = idNnumber
+
+
+detalles:
+DELIMITER //
+CREATE PROCEDURE mostrarDetalleProducto(
+IN idProduct INT)
+BEGIN
+SELECT * FROM Productos WHERE idProductos = idProduct;
+END //
+DELIMITER ;
+
+acarrito:
+DELIMITER //
+CREATE PROCEDURE sacarCarrito(
+IN idUser INT)
+BEGIN
+SELECT idCarrito FROM carritos WHERE idUsuario = idUser;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sacarCantidadDeProducto(
+IN carrito_id INT,
+IN producto_id INT)
+BEGIN
+SELECT cantidad FROM productosCarrito WHERE idCarrito = carrito_id AND idProducto = producto_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE agregarCantidad(
+IN total INT,
+IN carrito_id INT)
+BEGIN
+UPDATE ProductosCarrito SET cantidad = %d WHERE idCarrito =  %s'
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE validarproductoCarrito(
+IN idRecivido INT,
+OUT conteo INT)
+BEGIN
+DECLARE conteo INT;
+SELECT COUNT(*) INTO conteo FROM productoCarrito WHERE idProducto = idRecivido;
+IF conteo < 0 THEN
+SET conteo = 1;
+ELSE
+SET conteo = 0;
+ENDIF
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE agregarProductoCarrito(
+IN carrito_id INT,
+IN producto_id INT,
+IN _cantidad INT)
+BEGIN
+INSERT INTO ProductosCarrito (idCarrito,idProducto,cantidad) VALUES (carrito_id ,producto_id ,_cantidad);
+END //
+DELIMITER ;
+
+Borrar:
+DELIMITER //
+CREATE PROCEDURE borrarProductos(
+IN id VARCHAR(100))
+BEGIN
+DELETE FROM Productos WHERE idProducto = id;
+END //
+DELIMITER ;
+
+Carrito:
+DELIMITER //
+CREATE PROCEDURE sacarProductosCarrito(
+IN idUser INT)
+SELECT Productos.idProducto,Productos.nombreProducto,Productos.descripcion,Productos.precio,Productos.imagen,ProductosCarrito.cantidad FROM Productos NATURAL JOIN ProductosCarrito WHERE idProducto IN (SELECT idProducto FROM productosCarrito WHERE idCarrito IN (SELECT idCarrito FROM Carritos WHERE idUsuario = idUser))');
+END //
+DELIMITER ;
+
+acutalizarCant:
+DELIMITER //
+CREATE PROCEDURE sacarIdCarrito(
+IN idUser INT)
+BEGIN
+SELECT idCarrito FROM Carritos WHERE idUsuario = idUser;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE actualizarCarrito(
+IN cantidad2 INT,
+IN carrito_id INT,
+IN producto_id INT ))
+BEGIN
+UPDATE ProductosCarrito SET cantidad = cantidad2 WHERE idCarrito =  carrito_id AND idProducto = producto_id';
+END //
+DELIMITER ;
+
+BorrarProdC:
+DELIMITER //
+CREATE PROCEDURE borrarProductoCarrito(
+IN producto_id INT,
+IN idUser INT)
+DELETE FORM ProductosCarrito WHERE idProducto = producto_id AND idCarrito IN (SELECT idCarrito FROM Carritos WHERE idUsuario = idUser)';
+END //
+DELIMITER ;
+
+
+
+DELIMITER //
+CREATE PROCEDURE insertarProductos(
+IN nombre VARCHAR(100),
+IN desc VARCHAR(100),
+IN precio2 INT,
+IN foto2 VARCHAR(100))
+BEGIN 
+INSERT INTO productos(nombreProducto, descripcion, precio, imagen) VALUES(nombre, desc, precio2, foto2);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE actualizarProductos(
+IN nombre VARCHAR(100),
+IN desc VARCHAR(100),
+IN precio2 INT,
+IN foto2 VARCHAR(100))
+BEGIN
+UPDATE Inventario SET nombreProducto = nombre, descripcion = desc, precio = precio2 WHERE foto = foto2;

@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid text-center align-items-center py-4">
+
+    <div class="d-flex ms-5 text-center align-items-center">
+      <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="logo" width="80" height="80">
+    </div>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav justify-content-evenly d-flex w-100">
+        <li class="nav-item"><a href="/productosAdmin" class="btn nav-link rounded bg-danger p-2 text-white">Productos</a></li>
+        <li class="nav-item"><a href="/pedidosAdmin" class="btn nav-link rounded bg-danger p-2 text-white">Revision de Pedidos</a></li>
+        <li class="nav-item"><a href="/cerrarSesionAdmin" class="btn nav-link rounded bg-danger p-2 text-white">Cerrar Sesión</a></li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
